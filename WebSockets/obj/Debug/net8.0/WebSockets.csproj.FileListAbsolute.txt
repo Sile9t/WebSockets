@@ -1,0 +1,14 @@
+E:\Projects\DotNet\WebSockets\bin\Debug\net8.0\WebSockets.exe
+E:\Projects\DotNet\WebSockets\bin\Debug\net8.0\WebSockets.deps.json
+E:\Projects\DotNet\WebSockets\bin\Debug\net8.0\WebSockets.runtimeconfig.json
+E:\Projects\DotNet\WebSockets\bin\Debug\net8.0\WebSockets.dll
+E:\Projects\DotNet\WebSockets\bin\Debug\net8.0\WebSockets.pdb
+E:\Projects\DotNet\WebSockets\obj\Debug\net8.0\WebSockets.GeneratedMSBuildEditorConfig.editorconfig
+E:\Projects\DotNet\WebSockets\obj\Debug\net8.0\WebSockets.AssemblyInfoInputs.cache
+E:\Projects\DotNet\WebSockets\obj\Debug\net8.0\WebSockets.AssemblyInfo.cs
+E:\Projects\DotNet\WebSockets\obj\Debug\net8.0\WebSockets.csproj.CoreCompileInputs.cache
+E:\Projects\DotNet\WebSockets\obj\Debug\net8.0\WebSockets.dll
+E:\Projects\DotNet\WebSockets\obj\Debug\net8.0\refint\WebSockets.dll
+E:\Projects\DotNet\WebSockets\obj\Debug\net8.0\WebSockets.pdb
+E:\Projects\DotNet\WebSockets\obj\Debug\net8.0\WebSockets.genruntimeconfig.cache
+E:\Projects\DotNet\WebSockets\obj\Debug\net8.0\ref\WebSockets.dll
