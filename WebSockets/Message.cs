@@ -16,7 +16,7 @@ namespace WebSockets
             _from = from;
             _to = to;
         }
-        public string SerializeToJson() 
+        public string SerializeToJson()
             => JsonSerializer.Serialize(this);
         public static Message? DeserializeFromJson(string json)
             => JsonSerializer.Deserialize<Message>(json);
