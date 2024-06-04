@@ -15,39 +15,24 @@ namespace Client
         public async Task Execute(Message msg)
         {
             var command = msg._command;
-            Message ans = new Message("", Command.SendTo, msg._to!, msg._from);
             switch(command)
             {
                 case Command.SendTo:
-                    await SendTo(msg);
-                    ans._text = "Message sent";
-                    ans._date = DateTime.Now;
                     break;
                 case Command.SendAll:
-                    await SendAll(msg);
-                    ans._text = "Message sent";
-                    ans._date = DateTime.Now;
                     break;
                 case Command.GetUsersList:
-                    ans._text = GetUsersList(msg._from);
-                    ans._date = DateTime.Now;
                     break;
                 case Command.Register:
-                    var isRegistred = Register(msg._from);
-                    ans._text = isRegistred? "Registred" : "This name is already exist";
-                    ans._date = DateTime.Now;
                     break;
                 case Command.Delete:
-                    var isDeleted = Delete(msg._from);
-                    ans._text = isDeleted? "U have been deleted" : "No user with name like this";
-                    ans._date = DateTime.Now;
                     break;
             }
-            await SendTo(ans);
         }
-        public string GetUsersList((string name, IPEndPoint ip) ecxept)
+        public async Task<Message> GetUsersList(Message msg)
         {
             StringBuilder sb = new StringBuilder();
+            EPInfo ecxept = msg._from;
             foreach (var user in _users)
                 if (!user.Value.Equals(ecxept)) sb.Append(user.Key + ", ");
             sb.Remove(sb.Length - 2, 2);

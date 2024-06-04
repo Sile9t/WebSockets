@@ -9,8 +9,8 @@ namespace Client
 {
     public class EPInfo
     {
-        string _name { get; set; }
-        IPEndPoint _ip {  get; set; }
+        public string _name { get; set; }
+        public IPEndPoint _ip {  get; set; }
         public EPInfo(string name, IPEndPoint ip)
         {
              _name = name;
