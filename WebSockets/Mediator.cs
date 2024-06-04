@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WebSockets;
 
-namespace Client
+namespace ClientSide
 {
     public interface Mediator
     {

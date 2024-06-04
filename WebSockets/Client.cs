@@ -3,12 +3,15 @@ using System.Net;
 using System.Text;
 using WebSockets;
 
-namespace Client
+namespace ClientSide
 {
     public class Client
     {
-        private EPInfo _self = new EPInfo("",new IPEndPoint(IPAddress.Any, 0));
-        private EPInfo _server = new EPInfo("Server",new IPEndPoint(IPAddress.Any, 0));
+        private EPInfo _self = new EPInfo("",new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8080));
+        private EPInfo _server = new EPInfo("Server",new IPEndPoint(IPAddress.Parse("127.0.0.1"), 12345));
+        public Client()
+        {
+        }
         public Client(EPInfo server)
         {
             _server = server;

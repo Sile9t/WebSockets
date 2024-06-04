@@ -4,11 +4,11 @@ using System.Net.Sockets;
 using System.Text;
 using WebSockets;
 
-namespace Client
+namespace ClientSide
 {
     public class Server : Mediator
     {
-        private EPInfo _self = new EPInfo("Server", new IPEndPoint(IPAddress.Any, 0));
+        private EPInfo _self = new EPInfo("Server", new IPEndPoint(IPAddress.Parse("127.0.0.1"), 12345));
         ConcurrentDictionary<string, IPEndPoint> _users { get; } 
             = new ConcurrentDictionary<string, IPEndPoint>();
         public Server() { }
@@ -61,7 +61,7 @@ namespace Client
             bool success = false;
             if (_users.ContainsKey(user._name))
                 success = _users.TryRemove(user._name, out _);
-            if (success) return "You are deleted.";
+            if (success) return "Your account has been deleted.";
             return "No user like this.";
         }
         private async Task SendTo(Message msg)
@@ -71,6 +71,7 @@ namespace Client
                 var gotIp = _users.TryGetValue(msg._to, out IPEndPoint ip);
                 if (!gotIp)
                 {
+                    ip!.Port = 12346;
                     var jsonMessage = msg.SerializeToJson();
                     var buffer = Encoding.UTF8.GetBytes(jsonMessage);
                     for (int i = 0; i < 3; i++)
@@ -92,7 +93,8 @@ namespace Client
             Message msg;
             using (var udpClient = new UdpClient(_self._ip!))
             {
-                var endPoint = new IPEndPoint(IPAddress.Any, 0);
+                var endPoint = _self._ip;
+                endPoint!.Port++;
                 udpClient.Connect(endPoint);
                 var data = await udpClient.ReceiveAsync();
                 var buffer = data.Buffer;

@@ -1,4 +1,4 @@
-﻿using Client;
+﻿using ClientSide;
 using System.Text.Json;
 
 namespace WebSockets

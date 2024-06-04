@@ -1,4 +1,4 @@
-﻿namespace Client
+﻿namespace ClientSide
 {
     public enum Command
     {

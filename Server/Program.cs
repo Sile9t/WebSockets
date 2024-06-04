@@ -1,7 +1,4 @@
-﻿using Client;
-using System.Net;
-using System.Net.Sockets;
-using System.Text;
+﻿using ClientSide;
 
 namespace WebSockets
 {
@@ -12,6 +9,7 @@ namespace WebSockets
             Server server = new Server();
             while (true) 
             {
+                Console.WriteLine("Sever is waiting for requests.");
                 Message msg = await server.Receive();
                 await server.Execute(msg);
             }
