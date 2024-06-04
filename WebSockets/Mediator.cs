@@ -8,6 +8,6 @@ namespace Client
 {
     public interface Mediator
     {
-        public Task Execute(BaseComponent sender, Command command);
+        public Task Execute(Command command);
     }
 }
