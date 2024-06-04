@@ -5,7 +5,7 @@ using WebSockets;
 
 namespace Client
 {
-    internal class Client
+    public class Client
     {
         private EPInfo _self = new EPInfo("",new IPEndPoint(IPAddress.Any, 0));
         private EPInfo _server = new EPInfo("Server",new IPEndPoint(IPAddress.Any, 0));
