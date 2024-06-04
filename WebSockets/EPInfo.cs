@@ -10,7 +10,7 @@ namespace Client
     public class EPInfo
     {
         public string _name { get; set; }
-        public IPEndPoint _ip {  get; set; }
+        public IPEndPoint? _ip {  get; set; }
         public EPInfo(string name, IPEndPoint ip)
         {
              _name = name;
