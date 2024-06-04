@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using Client;
+using System.Text.Json;
 
 namespace WebSockets
 {
@@ -6,10 +7,10 @@ namespace WebSockets
     {
         public string? _text {  get; set; }
         public DateTime _date { get; set; }
-        public string? _from { get; set; }
-        public string? _to { get; set; }
+        public EPInfo _from { get; set; }
+        public EPInfo _to { get; set; }
         public Message() { }
-        public Message(string text, string from, string to)
+        public Message(string text, EPInfo from, EPInfo to)
         {
             _text = text;
             _date = DateTime.Now;
