@@ -11,7 +11,7 @@ namespace Client
     {
         public string _name { get; set; }
         public IPEndPoint? _ip {  get; set; }
-        public EPInfo(string name, IPEndPoint ip)
+        public EPInfo(string name, IPEndPoint ip = null)
         {
              _name = name;
             _ip = ip;

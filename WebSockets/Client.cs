@@ -7,15 +7,15 @@ namespace Client
 {
     internal class Client
     {
-        private (string name, IPEndPoint ip) _self = ("",new IPEndPoint(IPAddress.Any, 0));
-        private (string name, IPEndPoint ip) _server = ("server",new IPEndPoint(IPAddress.Any, 0));
-        public Client((string name,IPEndPoint ip) server)
+        private EPInfo _self = new EPInfo("",new IPEndPoint(IPAddress.Any, 0));
+        private EPInfo _server = new EPInfo("Server",new IPEndPoint(IPAddress.Any, 0));
+        public Client(EPInfo server)
         {
             _server = server;
         }
         public async Task Execute(Command command)
         {
-            Message? ans = null;
+            Message ans = new Message();
             switch (command)
             {
                 case Command.SendTo:
@@ -36,69 +36,67 @@ namespace Client
             }
             Console.WriteLine(ans);
         }
-        public async Task<Message?> Register()
+        public async Task<Message> Register()
         {
             Console.WriteLine("Enter your name");
-            _self.name = Console.ReadLine()!.ToLower();
-            while (String.IsNullOrEmpty(_self.name) || String.Equals(_self, ""))
+            _self._name = Console.ReadLine()!.ToLower();
+            while (String.IsNullOrEmpty(_self._name) || String.Equals(_self, ""))
             {
                 Console.WriteLine("Incorrect name! Enter again.");
-                _self.name = Console.ReadLine()!;
+                _self._name = Console.ReadLine()!;
             }
-            var msg = new Message(_self.name, Command.Register, _self, _server);
+            var msg = new Message(_self._name, Command.Register, _self, "Server");
             return await SendTo(msg);
         }
-        public async Task<Message?> Delete()
+        public async Task<Message> Delete()
         {
-            var msg = new Message("Delete", Command.Delete, _self, _server);
+            var msg = new Message("Delete", Command.Delete, _self, "Server");
             return await SendTo(msg);
         }
-        public async Task<Message?> SendTo()
+        public async Task<Message> SendTo()
         {
             Console.WriteLine("Enter message text");
             var text = Console.ReadLine()!;
             Console.WriteLine("Enter recipient name");
             var name = Console.ReadLine()!;
-            (string, IPEndPoint?) recipient = 
-                (name.ToLower() == _server.name)? _server : (name, null);
-            var msg = new Message(text, Command.SendTo, _self, recipient);
+            var msg = new Message(text, Command.SendTo, _self, name);
             return await SendTo(msg);
         }
-        public async Task<Message?> SendAll()
+        public async Task<Message> SendAll()
         {
             Console.WriteLine("Enter message text");
             var text = Console.ReadLine()!;
-            var msg = new Message(text, Command.SendTo, _self, _server);
+            var msg = new Message(text, Command.SendTo, _self, "Server");
             return await SendTo(msg);
         }
-        public async Task<Message?> SendTo(Message msg)
+        public async Task<Message> SendTo(Message msg)
         {
-            using (var udpClient = new UdpClient(_self.ip))
+            using (var udpClient = new UdpClient(_self._ip!))
             {
                 var jsonMessage = msg.SerializeToJson();
                 var buffer = Encoding.UTF8.GetBytes(jsonMessage);
                 for (int i = 0; i < 3; i++)
-                    await udpClient.SendAsync(buffer, buffer.Length, _server.ip);
+                    await udpClient.SendAsync(buffer, buffer.Length, _server._ip);
             }
             return await Receive();
         }
-        public async Task<Message?> Receive()
+        public async Task<Message> Receive()
         {
-            Message? msg = null;
-            using (var udpClient = new UdpClient(_self.ip))
+            Message msg;
+            using (var udpClient = new UdpClient(_self._ip!))
             {
                 var endPoint = new IPEndPoint(IPAddress.Any, 0);
                 udpClient.Connect(endPoint);
                 var data = await udpClient.ReceiveAsync();
                 var buffer = data.Buffer;
                 var jsonMessage = Encoding.UTF8.GetString(buffer);
-                msg = Message.DeserializeFromJson(jsonMessage);
+                msg = Message.DeserializeFromJson(jsonMessage)!;
             }
             return msg;
         }
         public async Task<Message?> GetUsersList()
         {
-            var msg = new Message("", Command.GetUsersList, _self, _server);
+            var msg = new Message("", Command.GetUsersList, _self, "Server");
             return await SendTo(msg);
         }
     }

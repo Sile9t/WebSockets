@@ -9,9 +9,9 @@ namespace WebSockets
         public DateTime _date { get; set; }
         public Command _command { get; set; }
         public EPInfo _from { get; set; }
-        public EPInfo _to { get; set; }
+        public string _to { get; set; }
         public Message() { }
-        public Message(string text, Command command, EPInfo from, EPInfo to)
+        public Message(string text, Command command, EPInfo from, string to)
         {
             _text = text;
             _date = DateTime.Now;
